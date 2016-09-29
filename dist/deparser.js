@@ -36,7 +36,7 @@ const parens = string => {
 };
 
 const indent = function indent(text) {
-  let count = arguments.length <= 1 || arguments[1] === undefined ? 1 : arguments[1];
+  let count = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
   return text;
 };
 
@@ -58,7 +58,7 @@ class Deparser {
   }
 
   list(nodes) {
-    let separator = arguments.length <= 1 || arguments[1] === undefined ? ', ' : arguments[1];
+    let separator = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ', ';
 
     if (!nodes) {
       return '';
@@ -124,6 +124,8 @@ class Deparser {
         return 'pg_catalog.timestamptz';
       case 'interval':
         return 'interval';
+      case 'bit':
+        return 'bit';
       default:
         throw new Error((0, _util.format)('Unhandled data type: %s', typeName));
     }
@@ -719,6 +721,13 @@ class Deparser {
     }
 
     return output.join(' ');
+  }
+
+  ['ParamRef'](node) {
+    if (node.number >= 0) {
+      return ['$', node.number].join('');
+    }
+    return '?';
   }
 
   ['RangeFunction'](node) {

@@ -105,6 +105,8 @@ export default class Deparser {
         return 'pg_catalog.timestamptz';
       case 'interval':
         return 'interval';
+      case 'bit':
+        return 'bit';
       default:
         throw new Error(format('Unhandled data type: %s', typeName));
     }
@@ -691,6 +693,13 @@ export default class Deparser {
     }
 
     return output.join(' ');
+  }
+
+  ['ParamRef'](node) {
+    if (node.number >= 0) {
+      return [ '$', node.number ].join('');
+    }
+    return '?';
   }
 
   ['RangeFunction'](node) {

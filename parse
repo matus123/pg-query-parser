@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-const parser = require('pg-query-native');
+require('babel-core/register')();
+const parser = require('./src');
 
 function runQuery(query) {
   const result = parser.parse(query).query;

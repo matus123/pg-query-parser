@@ -52,7 +52,7 @@ const defineQueryTest = (sqlQuery, file) => {
         'UpdateStmt',
         'DeleteStmt',
         'XmlExpr',
-        'XmlSerialize'
+        'XmlSerialize',
       ];
 
       for (const type of unsupportedTypes) {
