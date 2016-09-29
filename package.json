@@ -8,7 +8,7 @@
     "test": "./node_modules/.bin/mocha --reporter dot test/setup.js test/test.js",
     "build": "node_modules/.bin/babel src --out-dir dist --source-maps",
     "clean": "rm -rf dist",
-    "postinstall": "npm run clean && npm run build",
+    "rebuild": "npm run clean && npm run build",
     "check-deps": "node_modules/.bin/ncu",
     "update-deps": "node_modules/.bin/ncu -u"
   },
